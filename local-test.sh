@@ -1,6 +1,8 @@
 #!/bin/bash
 
+set -a
 source .env.graphnet
+set +a
 
 python ./manage.py migrate
 

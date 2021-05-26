@@ -6,7 +6,9 @@ The job-server is a web service written in Django and using many functionalities
 
 In order to use the GitHub functions, there are few things need to be setup on GitHub
 
-1. Create a GitHub user as the admin of the job-server app
+1. Create a GitHub user 
+    1. It is the admin of the job-server app
+    2. It is the admin of the organisation
 2. Open GitHub -> setting -> Personal access tokens -> create new token
 3. Save the token in env variable GITHUB_TOKEN
 4. Create a new Organizations called "graphnet-opensafely"
