@@ -57,7 +57,7 @@ Change the following code in the project to make the project unlink to the opens
 
 The job-server can be started locally with the [local-test.sh](./local-test.sh). This file depends on a private `.env.graphnet` file, which is not included int this repository for security reason. But these are the environment variables located in this file:
 
-- ADMIN_USERS - the damin username
+- ADMIN_USERS - the admin username
 - DJANGO_SUPERUSER_USERNAME - see https://docs.djangoproject.com/en/3.2/ref/django-admin/#createsuperuser
 - DJANGO_SUPERUSER_PASSWORD - see https://docs.djangoproject.com/en/3.2/ref/django-admin/#createsuperuser
 - DJANGO_SUPERUSER_EMAIL - see https://docs.djangoproject.com/en/3.2/ref/django-admin/#createsuperuser
