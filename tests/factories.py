@@ -24,6 +24,8 @@ from jobserver.models import (
     ProjectMembership,
     Release,
     ResearcherRegistration,
+    Review,
+    ReviewRequest,
     Stats,
     User,
     Workspace,
@@ -200,6 +202,27 @@ class ResearcherRegistrationFactory(factory.django.DjangoModelFactory):
         model = ResearcherRegistration
 
     user = factory.SubFactory("tests.factories.UserFactory")
+
+
+class ReviewFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = Review
+
+    reviewer = factory.SubFactory("tests.factories.UserFactory")
+    review_request = factory.SubFactory("tests.factories.ReviewRequestFactory")
+
+    status = factory.fuzzy.FuzzyChoice([c[0] for c in Review.STATUS_CHOICES])
+
+
+class ReviewRequestFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = ReviewRequest
+
+    backend = factory.SubFactory("tests.factories.BackendFactory")
+    created_by = factory.SubFactory("tests.factories.UserFactory")
+    workspace = factory.SubFactory("tests.factories.WorkspaceFactory")
+
+    paths = factory.Sequence(lambda n: f"/path/{n}")
 
 
 class StatsFactory(factory.django.DjangoModelFactory):

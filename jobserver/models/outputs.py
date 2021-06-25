@@ -59,3 +59,68 @@ class Release(models.Model):
     @property
     def manifest(self):
         return json.loads(self.file_path("metadata/manifest.json").read_text())
+
+
+class Review(models.Model):
+    STATUS_CHOICES = [
+        ("accepted", "Accepted"),
+        ("rejected", "Rejected"),
+    ]
+
+    reviewer = models.ForeignKey(
+        "User",
+        on_delete=models.PROTECT,
+        related_name="reviews",
+    )
+    review_request = models.ForeignKey(
+        "ReviewRequest",
+        on_delete=models.CASCADE,
+        related_name="reviews",
+    )
+
+    status = models.TextField(choices=STATUS_CHOICES)
+    message = models.TextField()
+
+    created_at = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return f"{self.status} Review for {self.review_request.workspace.name}"
+
+
+class ReviewRequest(models.Model):
+    """Models a request from a Researcher to review some outputs in a Workspace."""
+
+    backend = models.ForeignKey(
+        "Backend",
+        on_delete=models.PROTECT,
+        related_name="review_requests",
+    )
+    created_by = models.ForeignKey(
+        "User",
+        on_delete=models.PROTECT,
+        related_name="review_requests",
+    )
+    previous_request = models.ForeignKey(
+        "self",
+        on_delete=models.SET_NULL,
+        related_name="previous_requests",
+        null=True,
+    )
+    release = models.ForeignKey(
+        "Release",
+        on_delete=models.CASCADE,
+        related_name="review_requests",
+    )
+    workspace = models.ForeignKey(
+        "Workspace",
+        on_delete=models.CASCADE,
+        related_name="review_requests",
+    )
+
+    # file paths from the backend
+    paths = models.TextField()
+
+    created_at = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return f"Review requested by {self.created_by.name} for outputs from {self.workspace.name}"

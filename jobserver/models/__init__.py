@@ -11,7 +11,7 @@ from .core import (
     Workspace,
 )
 from .onboarding import ResearcherRegistration
-from .outputs import Release
+from .outputs import Release, Review, ReviewRequest
 from .stats import Stats
 
 
@@ -27,6 +27,8 @@ __all__ = [
     "ProjectMembership",
     "Release",
     "ResearcherRegistration",
+    "Review",
+    "ReviewRequest",
     "Stats",
     "User",
     "Workspace",
