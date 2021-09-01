@@ -21,4 +21,4 @@ requests
 sentry-sdk
 slack-sdk
 social-auth-app-django
-whitenoise[brotli]
+whitenoise
