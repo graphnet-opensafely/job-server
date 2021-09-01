@@ -125,7 +125,7 @@ jobs:
           just check-for-upgrades
 
   test:
-    needs: [assets, format, lint, sort, upgrade]
+    needs: [assets]
     runs-on: ubuntu-latest
 
     steps:
