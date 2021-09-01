@@ -47,83 +47,6 @@ jobs:
           name: node-assets
           path: assets/dist
 
-  format:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v2
-      - uses: "actions/setup-python@v2"
-        with:
-          python-version: "3.9"
-      - uses: actions/cache@v2
-        with:
-          path: ~/.cache/pip
-          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.prod.txt') }}
-          restore-keys: |
-            ${{ runner.os }}-pip
-      - uses: extractions/setup-just@v1
-      - run: ls -lah ${{ github.workspace }}
-      - name: Check formatting
-        run: |
-          just format
-
-  lint:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v2
-      - uses: "actions/setup-python@v2"
-        with:
-          python-version: "3.9"
-      - uses: actions/cache@v2
-        with:
-          path: ~/.cache/pip
-          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.prod.txt') }}
-          restore-keys: |
-            ${{ runner.os }}-pip
-      - uses: extractions/setup-just@v1
-      - name: Check linting
-        run: |
-          just lint
-
-  sort:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v2
-      - uses: "actions/setup-python@v2"
-        with:
-          python-version: "3.9"
-      - uses: actions/cache@v2
-        with:
-          path: ~/.cache/pip
-          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.prod.txt') }}
-          restore-keys: |
-            ${{ runner.os }}-pip
-      - uses: extractions/setup-just@v1
-      - name: Check import sorting
-        run: |
-          just sort
-
-  upgrade:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v2
-      - uses: "actions/setup-python@v2"
-        with:
-          python-version: "3.9"
-      - uses: actions/cache@v2
-        with:
-          path: ~/.cache/pip
-          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.prod.txt') }}
-          restore-keys: |
-            ${{ runner.os }}-pip
-      - uses: extractions/setup-just@v1
-      - name: Check for syntax upgrades
-        run: |
-          just check-for-upgrades
-
   test:
     needs: [assets]
     runs-on: ubuntu-latest
@@ -153,7 +76,7 @@ jobs:
           SOCIAL_AUTH_GITHUB_KEY: test
           SOCIAL_AUTH_GITHUB_SECRET: test
         run: |
-          just test
+          just format lint sort check-for-upgrades test
 
   lint-dockerfile:
     runs-on: ubuntu-latest
