@@ -147,7 +147,7 @@ DJANGO_VITE_DEV_MODE = env.bool("DJANGO_VITE_DEV_MODE", default=False)
 DJANGO_VITE_MANIFEST_PATH = os.path.join(BASE_DIR, "staticfiles", "manifest.json")
 
 # Insert Whitenoise Middleware.
-STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 WHITENOISE_KEEP_ONLY_HASHED_FILES = True
 WHITENOISE_SKIP_COMPRESS_EXTENSIONS = (
     "jpg",
@@ -169,6 +169,7 @@ WHITENOISE_SKIP_COMPRESS_EXTENSIONS = (
     "svg",
     "ico",
     "webmanifest",
+    "json",
 )
 
 # Logging
