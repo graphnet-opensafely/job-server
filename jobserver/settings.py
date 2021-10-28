@@ -41,7 +41,7 @@ BASE_URL = env.str("BASE_URL", default="http://localhost:8000")
 
 GRAPHNET_BACKEND_TOKEN = env.str("GRAPHNET_BACKEND_TOKEN")
 
-ALLOWED_HOSTS = [furl(BASE_URL).host, "host.docker.internal", 'localhost', *env.str('ALLOWED_HOSTS', '127.0.0.1').split(",")]
+ALLOWED_HOSTS = [furl(BASE_URL).host, "host.docker.internal", 'host.minikube.internal', 'localhost', *env.str('ALLOWED_HOSTS', '127.0.0.1').split(",")]
 print('ALLOWED_HOSTS:', ALLOWED_HOSTS)
 
 
